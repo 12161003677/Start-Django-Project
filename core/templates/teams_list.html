@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% include 'menu.html' %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8">
+        <br><br>
+          <!-- <div style="display: inline-block;float: left;margin-top: 10px;"><a href="/produtos/">VOLTAR</a></div> -->
+          <h3 style="">{{ title }}</h3>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <br><br><br><br><br>
+      </div>
+
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 l_prod" style="background-color: white;text-align:center">
+          <table style="width: 100%">
+            <tr>
+              <th>Turma</th>
+              <th>Alunos</th>
+            </tr>
+          {% for team in teams %}
+            <tr class="l_tb" onclick="location.href='{% url 'team_students' team.id %}'">
+              <td>{{ team.name }}</td>
+              <td>{{ team.qtd_students }}</td>
+            </tr>
+          {% endfor %}
+          </table>
+          <br><br>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+      </div>
+
+    </div>
+{% endblock %}

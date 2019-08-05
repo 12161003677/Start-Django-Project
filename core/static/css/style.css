@@ -1,0 +1,23 @@
+.l_prod tr{
+    font-size: 20px;
+    height: 35px;
+ }
+ tr:nth-child(even){
+    background: white;
+ }
+ tr:nth-child(odd){
+    background: #F2F2F2;
+ }
+ .l_prod tr th{
+    background-color: #A4A4A4
+ }
+
+.l_tb:hover{
+    background-color: #F3F781;
+    cursor: pointer;
+    style: inset;
+}
+#bill_value{
+    font-size: 30px;
+    color: red;
+}
