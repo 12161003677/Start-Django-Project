@@ -11,8 +11,12 @@
  .l_prod tr th{
     background-color: #A4A4A4
  }
-
 .l_tb:hover{
+    background-color: #F3F781;
+    cursor: pointer;
+    style: inset;
+}
+.cl_dt:hover{
     background-color: #F3F781;
     cursor: pointer;
     style: inset;
@@ -20,4 +24,13 @@
 #bill_value{
     font-size: 30px;
     color: red;
+}
+.info_student{
+    font-size: 40px;
+}
+.l_h_tb{
+    font-size: 20px;
+}
+.l_tb{
+    font-size: 20px;
 }

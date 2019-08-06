@@ -18,22 +18,28 @@
       <div class="row">
         <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
         <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 l_prod" style="background-color: white;text-align:center">
-          <table style="width: 100%">
-            <tr>
-              <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Conta(R$)</th>
-              <th>Foto</th>
-            </tr>
-          {% for student in students %}
-            <tr class="l_tb" onclick="location.href=''">
-              <td>{{ student.name }}</td>
-              <td>{{ student.username }}</td>
-              <td id="bill_value">{{ student.bill  }}</td>
-              <td><img class="card-img-top" src="{{ student.photo.url }}" alt="Card image cap" style="width: 80px;height: 60px;"></td>
-            </tr>
-          {% endfor %}
-          </table>
+
+          {% if students %}
+            <table style="width: 100%">
+              <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Conta(R$)</th>
+                <th>Foto</th>
+              </tr>
+            {% for student in students %}
+              <tr class="l_tb" onclick="location.href='{% url 'student' student.id %}'">
+                <td>{{ student.name }}</td>
+                <td>{{ student.username }}</td>
+                <td id="bill_value">{{ student.bill  }}</td>
+                <td><img class="card-img-top" src="{{ student.photo.url }}" alt="Card image cap" style="width: 50px;height: 40px;"></td>
+              </tr>
+            {% endfor %}
+            </table>
+          {%else%}
+            <h3>Não há alunos nessa turma!!!</h3>
+          {% endif %}
+
           <br>
           <br><br>
         </div>

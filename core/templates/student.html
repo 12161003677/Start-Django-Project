@@ -1,0 +1,64 @@
+{% extends 'base_layout.html' %}
+{% load staticfiles %}
+
+{% block content %}
+{% include 'menu.html' %}
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8" style="background-color: white;">
+            <br>
+            <div class="row">
+                &emsp;<div style="margin-top: 10px;"><a href="/turma/{{ student.team_id }}/alunos/">VOLTAR</a></div>
+            </div>
+            <br><br>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="background-color: white;text-align:center">
+                    <img style="height: 100%;width: 100%;" src="{{ student.photo.url }}" alt="error loading image">
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="text-align:center">
+                    <div class="row"><h4>{{ student.name }}</h4></div>
+                    <br>
+                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/team.png' %}" alt="error loading image">&emsp;{{ student.team }}</div>
+                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/mail.png' %}" alt="error loading image">&emsp;{{ student.email }}</div>
+                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/qr-code.png' %}" alt="error loading image">&emsp;{{ student.username }}</div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="text-align:center;font-size: 100px;font-family: 'arial';color: #088A08;">{{ student.bill }}</div>
+            </div>
+            <br>
+            <div class="row" style="text-align: center;">
+                <div style="width: 100%;height: 50px;background-color: #086A87;color: white;text-align: center;font-size: 30px;font-family: 'Arial';font-weight: bold;">Compras</div>
+                {% if purchases %}
+                    <table style="width: 100%">
+                    <tr class="l_h_tb">
+                      <th>Data</th>
+                      <th>Produto</th>
+                      <th>Quantidade</th>
+                      <th>Valor (R$)</th>
+                      <th>Total (R$)</th>
+                    </tr>
+                  {% for purchase in purchases %}
+                    <tr class="l_tb" onclick="location.href='{% url 'student' student.id %}'">
+                      <td style="">{{ purchase.date }}</td>
+<!--                      <td><img class="card-img-top" src="{{ purchase.product.photo.url }}" alt="Card image cap" style="width: 50px;height: 40px;"></td>-->
+                      <td>{{ purchase.product }}</td>
+                      <td>{{ purchase.qtd_prod }}</td>
+                      <td>{{ purchase.price }}</td>
+                      <td>{{ purchase.value }}</td>
+                    </tr>
+                  {% endfor %}
+                  </table>
+                {% else %}
+                    <h3>Não há compras!!!</h3>
+                {% endif %}
+            </div>
+            <br>
+
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+      </div>
+
+    </div>
+{% endblock %}

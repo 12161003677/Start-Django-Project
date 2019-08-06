@@ -19,4 +19,4 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(Purchase)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ['id', 'product', 'qtd_prod', 'value']
+   list_display = ['id', 'product', 'qtd_prod', 'value']

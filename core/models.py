@@ -49,12 +49,15 @@ class Product(models.Model):
         return self.name
 
 class Purchase(models.Model):
+    date = models.DateField(auto_now_add=False,blank=True, null=True)
+    student = models.ForeignKey("Student", on_delete=models.CASCADE, null=True)
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
     qtd_prod = models.IntegerField()
+    price = models.DecimalField(max_digits=8, decimal_places=2)
     value = models.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:
         verbose_name_plural = 'Purchases'
 
     def __str__(self):
-        return self.name
+        return self.product.name

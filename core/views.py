@@ -21,3 +21,20 @@ def team_students(request, id):
     data['students'] = Student.objects.filter(team_id=team.id)
 
     return render(request, 'team_students.html', data)
+
+def student(request, id):
+    data = {}
+    student = Student.objects.get(id=id)
+    data['student'] = student
+    data['title'] = student.name
+
+    purchases = Purchase.objects.filter(student_id=student.id)
+    data['purchases'] = purchases
+
+    #bill = 0
+    #for i in purchases:
+    #    bill += i.value
+    #data['bill'] = bill
+
+    return render(request, 'student.html', data)
+
