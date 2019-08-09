@@ -14,18 +14,43 @@
             </div>
             <br><br>
 
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="background-color: white;text-align:center">
-                    <img style="height: 100%;width: 100%;" src="{{ student.photo.url }}" alt="error loading image">
+            <div class="row" style="width: 90%;margin-left:5%;border:solid 1px #BDBDBD;border-radius: 10px;padding: 10px;">
+                <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-4" style="background-color: white;text-align:center;align: center;">
+                    <img style="height: 100%;width: 100%;border-radius: 10px;" src="{{ student.photo.url }}" alt="error loading image">
                 </div>
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="text-align:center">
-                    <div class="row"><h4>{{ student.name }}</h4></div>
+                <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-4" style="font-size:20px;text-align:center;padding-left:0px;">
+                    <div class="row"">
+                        <div class="col-12" style="">
+                            <h4>{{ student.name }}</h4>
+                        </div>
+                    </div>
                     <br>
-                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/team.png' %}" alt="error loading image">&emsp;{{ student.team }}</div>
-                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/mail.png' %}" alt="error loading image">&emsp;{{ student.email }}</div>
-                    <div class="row" style="font-size: 20px;margin-top:10px;"><img src="{% static 'img/icons/qr-code.png' %}" alt="error loading image">&emsp;{{ student.username }}</div>
+                    <div class="row">
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 l_info_stud" style="">
+                            <img src="{% static 'img/icons/team.png' %}" alt="error loading image">&emsp;{{ student.team }}
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 l_info_stud" style="">
+                            <img src="{% static 'img/icons/qr-code.png' %}" alt="error loading image">&emsp;{{ student.username }}
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 l_info_stud" style="">
+                            <img src="{% static 'img/icons/phone.png' %}" alt="error loading image">&emsp;{{ student.phone_1 }}
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 l_info_stud" style="">
+                            <img src="{% static 'img/icons/phone.png' %}" alt="error loading image">&emsp;{{ student.phone_2 }}
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 l_info_stud" style="">
+                            <img src="{% static 'img/icons/mail.png' %}" alt="error loading image">&emsp;{{ student.email }}
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="text-align:center;font-size: 100px;font-family: 'arial';color: #088A08;">{{ student.bill }}</div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4" style="text-align:center;font-size: 100px;font-family: 'arial';color: #088A08;">{{ student.bill }}</div>
             </div>
             <br>
             <div class="row" style="text-align: center;">
@@ -38,6 +63,7 @@
                       <th>Quantidade</th>
                       <th>Valor (R$)</th>
                       <th>Total (R$)</th>
+                      <th></th>
                     </tr>
                   {% for purchase in purchases %}
                     <tr class="l_tb" onclick="location.href='{% url 'student' student.id %}'">
@@ -47,6 +73,13 @@
                       <td>{{ purchase.qtd_prod }}</td>
                       <td>{{ purchase.price }}</td>
                       <td>{{ purchase.value }}</td>
+                      <td>
+                        {% if purchase.active %}
+                        <a class="btn btn-success" href="{% url 'purchase_pay' student.id purchase.id%}" style="width:90px">pagar</a>
+                        {% else %}
+                        <a  class="btn btn-danger" href="{% url 'cancel_purchase_pay' student.id purchase.id%}" style="width:90px">cancelar</a>
+                        {% endif %}
+                       </td>
                     </tr>
                   {% endfor %}
                   </table>
@@ -54,8 +87,10 @@
                     <h3>Não há compras!!!</h3>
                 {% endif %}
             </div>
+            <br><br>
+            <a class="btn btn-success" href="{% url 'new_purchase' student.id %}">adcionar</a>
             <br>
-
+            <br>
         </div>
         <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
       </div>

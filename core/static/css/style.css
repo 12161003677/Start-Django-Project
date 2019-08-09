@@ -23,7 +23,7 @@
 }
 #bill_value{
     font-size: 30px;
-    color: red;
+    color: #088A08;
 }
 .info_student{
     font-size: 40px;
@@ -33,4 +33,15 @@
 }
 .l_tb{
     font-size: 20px;
+}
+.menu{
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+}
+.l_info_stud{
+    margin-top: 10px;
+    text-align: left;
+    font-size: 15px;
 }

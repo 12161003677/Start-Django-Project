@@ -7,7 +7,7 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'username', 'password', 'email', 'team', 'bill', 'photo']
+    list_display = ['id', 'name', 'username', 'password', 'email', 'phone_1', 'phone_2', 'team', 'bill', 'photo']
 
 @admin.register(TypeProd)
 class TypeProdAdmin(admin.ModelAdmin):
@@ -18,5 +18,5 @@ class TeamAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'price', 'type', 'photo']
 
 @admin.register(Purchase)
-class TeamAdmin(admin.ModelAdmin):
-   list_display = ['id', 'product', 'qtd_prod', 'value']
+class PurchaseAdmin(admin.ModelAdmin):
+   list_display = ['id', 'product', 'price', 'qtd_prod', 'value', 'active']

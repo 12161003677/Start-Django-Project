@@ -16,6 +16,8 @@ class Student(models.Model):
     password = models.CharField(max_length=8)
     name = models.CharField(max_length=60)
     email = models.CharField(max_length=60)
+    phone_1 = models.CharField(max_length=14, null=True)
+    phone_2 = models.CharField(max_length=14, null=True)
     photo = models.ImageField(upload_to='image', null=True)
     team = models.ForeignKey("Team", on_delete=models.CASCADE)
     bill = models.DecimalField(max_digits=8, decimal_places=2, default=0)
@@ -55,6 +57,7 @@ class Purchase(models.Model):
     qtd_prod = models.IntegerField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     value = models.DecimalField(max_digits=8, decimal_places=2)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = 'Purchases'

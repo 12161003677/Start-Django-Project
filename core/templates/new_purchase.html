@@ -1,0 +1,91 @@
+{% extends 'base_layout.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    {% include 'menu.html' %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8">
+          <br>
+          <a href="/aluno/{{ id }}">VOLTAR</a>
+          <br>
+          <h3>Nova Compra</h3>
+          <br><br>
+
+          <div style="width: 90%;margin-left:5%;border:solid 1px #BDBDBD;border-radius: 10px;padding: 10px;">
+           <form method="POST" action="submit" enctype="multipart/form-data">{% csrf_token %}
+<!--start 1º row _____________________________________________________________________________________________________________________________________________-->
+            <div class="form-row">
+    <!-- start 1º column_____________________________________________________________________________________________________________________________________________-->
+              <div class="form-group col-md-6">
+        <!-- 1º row-column-1_____________________________________________________________________________________________________________________________________________-->
+                <div class="row">
+
+                  <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <label for="prod">Produto</label>
+                    <select id="prod" name="prod" class="form-control" onchange="update_input_select_prod()" required>
+                      <option value="" selected><div></div></option>
+                      {% for prod in products %}
+                      <option value="{{prod.id}},{{prod.price}}"><div>{{ prod.name }}</div></option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <label class="control-label" for="date">Data</label>
+                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" required/>
+                  </div>
+
+                </div>
+        <br>
+        <!-- 2º row-column-1_____________________________________________________________________________________________________________________________________________-->
+                <div class="row">
+
+                  <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <label for="price">Preço</label>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Preço" readonly="readonly">
+                  </div>
+
+                  <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <label for="amount">Quantidade</label>
+                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Quantidade" value="1" onchange="update_value()">
+                  </div>
+
+                </div>
+
+              </div>
+    <!-- end 1º column_____________________________________________________________________________________________________________________________________________-->
+    <!-- start 2º column_____________________________________________________________________________________________________________________________________________-->
+              <div class="form-group col-md-6" style="padding-left: 40px;">
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <label for="desc">Descrição</label>
+                        <textarea class="form-control" id="desc" name="desc" rows="3" placeholder="Descrição do produto..."></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="text-align: center;padding-top:10px;">
+                        <h3 id="value2">R$ 0.00</h3>
+                        <input type="text" name="value" id="value" hidden>
+                    </div>
+                </div>
+
+              </div>
+    <!-- end 2º column_____________________________________________________________________________________________________________________________________________-->
+           </div>
+<!--end 1º row_____________________________________________________________________________________________________________________________________________-->
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+          </div>
+
+          <br><br><br><br>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+      </div>
+    </div>
+
+{% endblock %}
