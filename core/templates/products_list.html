@@ -1,0 +1,49 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% include 'menu.html' %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8">
+        <br>
+          <div style="margin-top: 10px;"><a href="/categorias-de-produtos/">VOLTAR</a></div>
+            <br>
+          <h3 style="">{{ title }}</h3><br>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <br><br><br><br><br>
+      </div>
+
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 l_prod" style="background-color: white;text-align:center">
+
+          {% if products %}
+            <table style="width: 100%">
+              <tr>
+                <th>Produto</th>
+                <th>Preço(R$)</th>
+                <th>Foto</th>
+              </tr>
+            {% for product in products %}
+              <tr class="l_tb" onclick="location.href=''">
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td><img class="card-img-top" src="{{ product.photo.url }}" alt="Card image cap" style="width: 50px;height: 40px;"></td>
+              </tr>
+            {% endfor %}
+            </table>
+          {%else%}
+            <h3>Não há produtos nessa categoria!!!</h3>
+          {% endif %}
+
+          <br>
+            <a class="btn btn-success" href="" style="align:left;float:left;">adcionar</a>
+          <br><br>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+      </div>
+
+    </div>
+{% endblock %}

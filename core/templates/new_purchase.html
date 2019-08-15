@@ -11,11 +11,14 @@
           <br>
           <a href="/aluno/{{ id }}">VOLTAR</a>
           <br>
-          <h3>Nova Compra</h3>
+          <h3>{{ title }}</h3>
           <br><br>
 
           <div style="width: 90%;margin-left:5%;border:solid 1px #BDBDBD;border-radius: 10px;padding: 10px;">
            <form method="POST" action="submit" enctype="multipart/form-data">{% csrf_token %}
+               {% if purchase %}
+               <input id="id_purchase" name="id_purchase" hidden value="{{ purchase.id }}"/>
+               {% endif %}
 <!--start 1º row _____________________________________________________________________________________________________________________________________________-->
             <div class="form-row">
     <!-- start 1º column_____________________________________________________________________________________________________________________________________________-->
@@ -27,6 +30,9 @@
                     <label for="prod">Produto</label>
                     <select id="prod" name="prod" class="form-control" onchange="update_input_select_prod()" required>
                       <option value="" selected><div></div></option>
+                      {% if purchase %}
+                        <option value="{{purchase.product_id}},{{purchase.price}}" selected><div>{{ purchase.product.name }}</div></option>
+                      {% endif %}
                       {% for prod in products %}
                       <option value="{{prod.id}},{{prod.price}}"><div>{{ prod.name }}</div></option>
                       {% endfor %}
@@ -35,7 +41,7 @@
 
                   <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                     <label class="control-label" for="date">Data</label>
-                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" required/>
+                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" required {% if purchase %}value="{{purchase.date}}"{% endif %}/>
                   </div>
 
                 </div>
@@ -45,12 +51,12 @@
 
                   <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label for="price">Preço</label>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Preço" readonly="readonly">
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Preço" readonly="readonly" {% if purchase %}value="{{purchase.price}}"{% endif %}>
                   </div>
 
                   <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <label for="amount">Quantidade</label>
-                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Quantidade" value="1" onchange="update_value()">
+                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Quantidade" onchange="update_value()" {% if purchase %}value="{{purchase.qtd_prod}}"{% else %}value="1"{% endif %}>
                   </div>
 
                 </div>
@@ -63,13 +69,16 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <label for="desc">Descrição</label>
-                        <textarea class="form-control" id="desc" name="desc" rows="3" placeholder="Descrição do produto..."></textarea>
+                        <textarea class="form-control" id="desc" name="desc" rows="3" placeholder="Descrição do produto..." ></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="text-align: center;padding-top:10px;">
-                        <h3 id="value2">R$ 0.00</h3>
-                        <input type="text" name="value" id="value" hidden>
+                        <h3 id="value2">R$ {% if purchase %}{{purchase.value}}{% else %}0.00{% endif %}</h3>
+                        <input type="text" name="value" id="value" hidden {% if purchase %}value="{{purchase.value}}"{% endif %}>
+                        {% if purchase %}
+                        <input id="old_value" name="old_value" hidden value="{{ purchase.value }}"/>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -78,7 +87,12 @@
            </div>
 <!--end 1º row_____________________________________________________________________________________________________________________________________________-->
 
+            {% if purchase %}
+            <button type="submit" class="btn btn-primary">Alterar</button>&emsp;
+            <a href="{% url 'delete_purchase' id purchase.id %}" class="btn btn-danger">Excluir</a>
+            {% else %}
             <button type="submit" class="btn btn-primary">Salvar</button>
+            {% endif %}
           </form>
           </div>
 

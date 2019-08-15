@@ -56,7 +56,7 @@
             <div class="row" style="text-align: center;">
                 <div style="width: 100%;height: 50px;background-color: #086A87;color: white;text-align: center;font-size: 30px;font-family: 'Arial';font-weight: bold;">Compras</div>
                 {% if purchases %}
-                    <table style="width: 100%">
+                    <table style="width: 100%;" class="overflow">
                     <tr class="l_h_tb">
                       <th>Data</th>
                       <th>Produto</th>
@@ -66,7 +66,7 @@
                       <th></th>
                     </tr>
                   {% for purchase in purchases %}
-                    <tr class="l_tb" onclick="location.href='{% url 'student' student.id %}'">
+                    <tr class="l_tb" onclick="location.href='{% url 'detail_purchase' student.id purchase.id %}'">
                       <td style="">{{ purchase.date }}</td>
 <!--                      <td><img class="card-img-top" src="{{ purchase.product.photo.url }}" alt="Card image cap" style="width: 50px;height: 40px;"></td>-->
                       <td>{{ purchase.product }}</td>
@@ -84,7 +84,7 @@
                   {% endfor %}
                   </table>
                 {% else %}
-                    <h3>Não há compras!!!</h3>
+                    <h4 style="width:100%;text-align: center;"><br>{{student.name}} não possui nenhuma compra registrada!!!</h4>
                 {% endif %}
             </div>
             <br><br>
