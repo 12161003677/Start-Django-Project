@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import settings
-from core.views import index, teams, team_students, student, purchase_pay, cancel_purchase_pay, new_purchase, new_purchase_submit, detail_purchase, detail_purchase_submit, delete_purchase, categories, category
+from core.views import index, teams, team_students, student, purchase_pay, cancel_purchase_pay, new_purchase, new_purchase_submit, detail_purchase, detail_purchase_submit,\
+    delete_purchase, categories, category, new_product, new_product_submit, detail_product, detail_product_submit, delete_product
 
 #adcione: para imagens junto com o debaixo -> ' urlpatterns += staticfiles_urlpatterns() / urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
@@ -39,6 +40,12 @@ urlpatterns = [
 
     path('categorias-de-produtos/', categories, name="categories"),
     path('categoria/<id_cat>/produtos/', category, name="category"),
+    path('categoria/<id_cat>/novo-produto/', new_product, name="new_product"),
+    path('categoria/<id_cat>/novo-produto/submit', new_product_submit),
+    path('categoria/<id_cat>/produto/<id_prod>/', detail_product, name="detail_product"),
+    path('categoria/<id_cat>/produto/<id_prod>/submit', detail_product_submit),
+    path('categoria/<id_cat>/excluir-produto/<id_prod>/', delete_product, name="delete_product"),
+
 ]
 
 #adcione: para imagens

@@ -1,0 +1,83 @@
+{% extends 'base_layout.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    {% include 'menu.html' %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8">
+          <br>
+          <a href="/categoria/{{ id_cat }}/produtos">VOLTAR</a>
+          <br>
+          <h3>{{ title }}</h3>
+          <br><br>
+
+          <div style="width: 90%;margin-left:5%;border:solid 1px #BDBDBD;border-radius: 10px;padding: 10px;">
+           <form method="POST" action="submit" enctype="multipart/form-data">{% csrf_token %}
+               {% if product %}
+               <input id="id_product" name="id_product" hidden value="{{ product.id }}"/>
+               {% endif %}
+<!--start 1º row _____________________________________________________________________________________________________________________________________________-->
+             <div class="form-row">
+    <!-- start 1º column_____________________________________________________________________________________________________________________________________________-->
+              <div class="form-group col-md-7">
+        <!-- 1º row-column-1_____________________________________________________________________________________________________________________________________________-->
+                <div class="row">
+
+                  <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <label for="name_prod">Nome Produto</label>
+                    <input type="text" id="name_prod" name="name_prod" class="form-control" placeholder="Produto . . ." {% if product %}value="{{product.name}}"{% endif %} required/>
+                  </div>
+
+                  <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <label class="control-label" for="price">Preço</label>
+                    <input class="form-control" id="price" name="price" placeholder="R$ 0.00" step="0.5" type="number" {% if product %}value="{{product.price}}"{% endif %} required/>
+                  </div>
+
+                </div>
+        <br>
+        <!-- 2º row-column-1_____________________________________________________________________________________________________________________________________________-->
+                <div class="row">
+
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <label for="category2">Categoria</label>
+                    <input type="text" class="form-control" id="category2" name="category2" readonly="readonly" value="{{ category.type }}">
+                    <input type="text" class="form-control" id="category" name="category" readonly="readonly" value="{{ category.id }}" hidden>
+                  </div>
+
+                </div>
+
+              </div>
+    <!-- end 1º column_____________________________________________________________________________________________________________________________________________-->
+    <!-- start 2º column_____________________________________________________________________________________________________________________________________________-->
+              <div class="form-group col-md-5" style="padding-left: 40px;">
+                  <div class="row">
+                    <label for="photo">Foto</label>
+                    <input type="file" class="form-control-file" id="photo" name="photo" {% if product %}{% else %}required{% endif %}>
+                    {% if product %}
+                    <a style="height:50%;width:50%;margin-left: 25%;" href="/media/{{ product.photo }}" target="_blank"><img src="/media/{{ product.photo }}" style="width: 80%;height:50%;" alt="load picture error"></a>
+                    {% endif %}
+                  </div>
+              </div>
+    <!-- end 2º column_____________________________________________________________________________________________________________________________________________-->
+           </div>
+<!--end 1º row_____________________________________________________________________________________________________________________________________________-->
+
+            {% if product %}
+            <button type="submit" class="btn btn-primary">Alterar</button>&emsp;
+            <a href="{% url 'delete_product' id_cat product.id %}" class="btn btn-danger">Excluir</a>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            {% endif %}
+          </form>
+          </div>
+
+          <br><br><br><br>
+        </div>
+        <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-xl-2" style="background-color: #E6E6E6;"></div>
+      </div>
+    </div>
+
+{% endblock %}

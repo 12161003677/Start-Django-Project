@@ -158,6 +158,63 @@ def category(request, id_cat):
     data = {}
     category = TypeProd.objects.get(id=id_cat)
     data['title'] = category.type
+    data['id_cat'] = category.id
     data['products'] = Product.objects.filter(type_id=id_cat)
 
     return render(request, 'products_list.html', data)
+
+def new_product(request, id_cat):
+    data = {}
+    data['title'] = 'Novo Produto'
+    data['id_cat'] = id_cat
+    data['category'] = TypeProd.objects.get(id=id_cat)
+
+    return render(request, 'new_product.html', data)
+
+def new_product_submit(request, id_cat):
+    name = request.POST.get('name_prod')
+    print(name)
+    price = request.POST.get('price')
+    category = request.POST.get('category')
+    photo = request.FILES.get('photo')
+
+    Product.objects.create(name=name,price=price,type_id=category,photo=photo)
+    link = '/categoria/'+id_cat+'/produtos/'
+    return redirect(link)
+
+def detail_product(request, id_cat, id_prod):
+    data = {}
+    data['id_cat'] = id_cat
+    data['category'] = TypeProd.objects.get(id=id_cat)
+    product = Product.objects.get(id=id_prod)
+    data['title'] = product.name
+    data['product'] = product
+
+    return render(request, 'new_product.html', data)
+
+def detail_product_submit(request, id_cat, id_prod):
+    name = request.POST.get('name_prod')
+    print(name)
+    price = request.POST.get('price')
+    category = request.POST.get('category')
+    photo = request.FILES.get('photo')
+
+    product = Product.objects.get(id=id_prod)
+    product.name = name
+    product.price = price
+    product.type_id = category
+    if photo:
+        product.photo = photo
+
+    product.save()
+
+    link = '/categoria/'+id_cat+'/produtos/'
+    return redirect(link)
+
+
+def delete_product(request, id_cat, id_prod):
+    product = Product.objects.get(id=id_prod)
+    product.delete()
+
+    link = '/categoria/'+id_cat+'/produtos/'
+    return redirect(link)
